@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap');
+
+/* Background */
+
+.bg {
+    background-color: #f4f4f4;
+    font-family: 'Ubuntu', sans-serif;
+    height: 100%;
+}
+
+
+/* Navbar */
+
+.nav-bg {
+    background-color: #08c728;
+}
+
+.nav-bg a {
+    color: #1D1115;
+    transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+    -o-transition: all 0.35s ease-in-out;
+}
+
+.nav-bg a:hover {
+    color: #f8eae5;
+}
+
+.nav-button {
+    color: #f8eae5;
+}
+
+.navbar-toggler {
+    outline: none;
+}
+
+.logged-in {
+    color: #1D1115;
+    margin: 8px 2px;
+}

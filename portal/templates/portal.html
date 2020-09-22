@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block page_title %} Job Hunter{% endblock %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block page_title %} Job Hunter | {{ profile }}'s Portal{% endblock %} {% block content %}
 
 <section class="header">
     <div class="row mb-5">
@@ -11,8 +11,10 @@
 <section class="jobs">
     <div class="row">
         <div class="col-6">
+            <a href="{% url 'new_job_application' %}" role="button" class="btn btn-success" aria-disabled="false">New Application</a>
+            <h4 class="mt-2">Job Applications:</h4>
             {% for j in jobs %}
-            <p>{{ j }}</p>
+            <p><a href="{% url 'job' j.pk%}">{{ j }}</a></p>
             {% endfor %}
         </div>
         <div class="col-6"></div>

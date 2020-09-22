@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% load static %} {% block page_title %} Job Hunter | {{ job }}{% endblock %} {% block content %}
+
+<section class="button-nav">
+    <div class="row mb-5">
+        <div class="col-12">
+            <a href="{% url 'portal' %}" role="button" class="btn btn-warning" aria-disabled="false">Back</a>
+        </div>
+    </div>
+</section>
+
+<section class="header">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="headliner-text">{{ job }}</h1>
+        </div>
+        <div class="col-12 text-center">
+            <h4>{{ job.date }}</h4>
+            <p>{{ job.profile }}</p>
+        </div>
+    </div>
+</section>
+
+<section class="jobs">
+    <div class="row">
+        <div class="col-6">
+            <p>Applied On: {{ job.applied_on }}</p>
+        </div>
+        <div class="col-6">
+            <p>Notes: {{ job.notes }}</p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

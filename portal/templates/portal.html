@@ -8,4 +8,15 @@
     </div>
 </section>
 
+<section class="jobs">
+    <div class="row">
+        <div class="col-6">
+            {% for j in jobs %}
+            <p>{{ j }}</p>
+            {% endfor %}
+        </div>
+        <div class="col-6"></div>
+    </div>
+</section>
+
 {% endblock %}

@@ -21,8 +21,11 @@
             <div class="form-group col-md-6 col-12">
                 {{ job_form.role|as_crispy_field }}
             </div>
-            <div class="form-group col-md-6 col-12">
+            <div class="form-group col-md-3 col-12">
                 {{ job_form.applied_on|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-3 col-12">
+                {{ job_form.status|as_crispy_field }}
             </div>
             <div class="form-group col-12 mb-0">
                 {{ job_form.notes|as_crispy_field }}

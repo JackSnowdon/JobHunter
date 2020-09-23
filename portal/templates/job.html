@@ -22,6 +22,8 @@
         <div class="col-4">
             <h5>Applied On: {{ job.date|date:"j/m/y" }}</h5>
             <p> {{ job.applied_on }}</p>
+            <p> Status: {{ job.status }}</p>
+            <a href="{% url 'update_job_status' job.pk %}" role="button" class="btn btn-success" aria-disabled="false">Update Status</a>
         </div>
         <div class="col-8">
             <h5>Notes:</h5>

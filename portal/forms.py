@@ -14,3 +14,10 @@ class JobNotesForm(forms.ModelForm):
     class Meta:
         model = Job
         fields = ['notes']
+
+
+class JobStatusForm(forms.ModelForm):
+
+    class Meta:
+        model = Job
+        fields = ['status']

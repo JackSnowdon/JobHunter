@@ -10,6 +10,25 @@ class Job(models.Model):
     notes = models.TextField()
     date = models.DateField(auto_now=True)
     profile = models.ForeignKey(Profile, related_name='jobs', on_delete=models.CASCADE)
+    APPLIED = 'Applied'
+    INTERVIEW = 'Interview'
+    TECHTEST = 'Tech Test'
+    OFFER = 'Offer'
+    ACCEPTED = 'Accepted'
+    REJECTED = 'Rejected'
+    STATUS_CHOICES = [
+        (APPLIED, 'Applied'),
+        (INTERVIEW, 'Interview'),
+        (TECHTEST, 'Tech Test'),
+        (OFFER, 'Offer'),
+        (ACCEPTED, 'Accepted'),
+        (REJECTED,'Rejected'),
+    ]
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default=APPLIED,
+    )
     
     def __str__(self):
         return self.role

@@ -8,6 +8,8 @@ from .forms import *
 
 # Create your views here.
 
+# Jobs
+
 @login_required
 def portal(request):
     profile = request.user.profile
@@ -65,11 +67,30 @@ def update_job_notes(request, pk):
             if job_form.is_valid():
                 form = job_form.save(commit=False)
                 form.save()
-                messages.error(request, f"Update {job} Notes", extra_tags="alert")
+                messages.error(request, f"Updated {job} Notes", extra_tags="alert")
                 return redirect("job", job.pk)    
         else:
             job_form = JobNotesForm(instance=job)
         return render(request, "update_job_notes.html", {"job_form": job_form, "job": job})
+    else:
+        messages.error(request, f"Job Not Yours To Update", extra_tags="alert")
+        return redirect("index")
+
+
+@login_required
+def update_job_status(request, pk):
+    job = get_object_or_404(Job, pk=pk)
+    if job.profile == request.user.profile:
+        if request.method == "POST":
+            job_form = JobStatusForm(request.POST, instance=job)
+            if job_form.is_valid():
+                form = job_form.save(commit=False)
+                form.save()
+                messages.error(request, f"Update {job} Status", extra_tags="alert")
+                return redirect("job", job.pk)    
+        else:
+            job_form = JobStatusForm(instance=job)
+        return render(request, "update_job_status.html", {"job_form": job_form, "job": job})
     else:
         messages.error(request, f"Job Not Yours To Update", extra_tags="alert")
         return redirect("index")

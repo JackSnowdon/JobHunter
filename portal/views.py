@@ -11,7 +11,7 @@ from .forms import *
 @login_required
 def portal(request):
     profile = request.user.profile
-    jobs = Job.objects.order_by("date")
+    jobs = profile.jobs.all().order_by("date")
     today = date.today()
     today_jobs = jobs.filter(date=today)
     yday = today - timedelta(days=1)
@@ -73,3 +73,10 @@ def update_job_notes(request, pk):
     else:
         messages.error(request, f"Job Not Yours To Update", extra_tags="alert")
         return redirect("index")
+
+
+@login_required
+def view_all_applications(request):
+    profile = request.user.profile
+    jobs = profile.jobs.all().order_by("date")
+    return render(request, "view_all_applications.html", {"jobs": jobs})

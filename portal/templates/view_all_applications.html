@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% load static %} {% block page_title %} Job Hunter | {{ profile }}'s Applications{% endblock %} {% block content %}
+
+<section class="button-nav">
+    <div class="row mb-5">
+        <div class="col-12">
+            <a href="{% url 'portal' %}" role="button" class="btn btn-warning" aria-disabled="false">Back</a>
+        </div>
+    </div>
+
+</section>
+<section class="header">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="headliner-text">{{ user.profile }}'s Applications</h1>
+        </div>
+    </div>
+</section>
+
+<section class="jobs">
+    <div class="row">
+        <div class="col-4">
+            <h4>Jobs:</h4>
+            <p>Total Applications: {{ jobs.count }}</p>
+            <a href="{% url 'new_job_application' %}" role="button" class="btn btn-success mb-3" aria-disabled="false">New Application</a>
+        </div>
+        <div class="col-12 mb-3">
+            <h5>All Applications:</h5>
+            <ul class="list-group">
+                {% for j in jobs %}
+                <li class="list-group-item"><a href="{% url 'job' j.pk %}" class="job-link">{{ j }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

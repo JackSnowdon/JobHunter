@@ -34,3 +34,17 @@ def job(request, pk):
     job = get_object_or_404(Job, pk=pk)
     profile = request.user.profile
     return render(request, "job.html", {"job": job})
+
+
+@login_required
+def delete_job(request, pk):
+    job = get_object_or_404(Job, pk=pk)
+    if job.profile == request.user.profile:
+        job.delete()
+        messages.error(
+            request, f"Deleted {job}", extra_tags="alert"
+        )
+        return redirect(reverse("portal"))
+    else:
+        messages.error(request, f"Job Not Yours To Delete", extra_tags="alert")
+        return redirect("party_home")

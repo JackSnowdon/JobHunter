@@ -10,11 +10,13 @@
 
 <section class="jobs">
     <div class="row">
-        <div class="col-6">
+        <div class="col-12">
             <a href="{% url 'new_job_application' %}" role="button" class="btn btn-success" aria-disabled="false">New Application</a>
             <h4 class="mt-2">Job Applications:</h4>
             {% for j in jobs %}
-            <p><a href="{% url 'job' j.pk%}">{{ j }}</a></p>
+            <div class="job-box-outer">
+                <p class="job-link"><a href="{% url 'job' j.pk%}">{{ j }}</a></p>
+            </div>
             {% endfor %}
         </div>
         <div class="col-6"></div>

@@ -39,3 +39,27 @@
     color: #1D1115;
     margin: 8px 2px;
 }
+
+
+/* Portal */
+
+.job-box-outer {
+    height: 75px;
+    width: 100%;
+    border: black solid 0.5px;
+    margin-bottom: 3.5px;
+}
+
+.job-link a {
+    margin-left: 3px;
+    color: #1D1115;
+    transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+}
+
+.job-link a:hover {
+    text-decoration: none;
+    color: #267c35;
+}

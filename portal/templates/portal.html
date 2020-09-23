@@ -10,10 +10,23 @@
 
 <section class="jobs">
     <div class="row">
-        <div class="col-12">
-            <a href="{% url 'new_job_application' %}" role="button" class="btn btn-success" aria-disabled="false">New Application</a>
-            <ul class="list-group mt-3">
-                {% for j in jobs %}
+        <div class="col-4">
+            <h4>Jobs:</h4>
+            <p>Total Applications: {{ jobs.count }}</p>
+            <a href="{% url 'new_job_application' %}" role="button" class="btn btn-success mb-3" aria-disabled="false">New Application</a>
+        </div>
+        <div class="col-12 mb-3">
+            <h5>Todays Applications: {{today|date:"j/m/y"}}</h5>
+            <ul class="list-group">
+                {% for j in today_jobs %}
+                <li class="list-group-item"><a href="{% url 'job' j.pk %}" class="job-link">{{ j }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12 mb-3">
+            <h5>Yesterdays Applications: {{yday|date:"j/m/y"}}</h5>
+            <ul class="list-group">
+                {% for j in yday_jobs %}
                 <li class="list-group-item"><a href="{% url 'job' j.pk %}" class="job-link">{{ j }}</a></li>
                 {% endfor %}
             </ul>

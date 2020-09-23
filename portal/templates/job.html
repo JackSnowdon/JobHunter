@@ -20,7 +20,7 @@
 <section class="jobs">
     <div class="row">
         <div class="col-4">
-            <h5>Applied On: {{ job.date }}</h5>
+            <h5>Applied On: {{ job.date|date:"j/m/y" }}</h5>
             <p> {{ job.applied_on }}</p>
         </div>
         <div class="col-8">

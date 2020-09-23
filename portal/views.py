@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from datetime import date, timedelta
 from .models import *
 from .forms import *
 
@@ -11,7 +12,12 @@ from .forms import *
 def portal(request):
     profile = request.user.profile
     jobs = Job.objects.order_by("date")
-    return render(request, "portal.html", {"profile": profile, "jobs": jobs})
+    today = date.today()
+    today_jobs = jobs.filter(date=today)
+    yday = today - timedelta(days=1)
+    yday_jobs = jobs.filter(date=yday)
+    return render(request, "portal.html", {"profile": profile, "jobs": jobs, "today_jobs": today_jobs, "today": today,
+                                            "yday": yday, "yday_jobs": yday_jobs})
 
 
 @login_required

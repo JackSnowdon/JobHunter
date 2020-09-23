@@ -12,14 +12,12 @@
     <div class="row">
         <div class="col-12">
             <a href="{% url 'new_job_application' %}" role="button" class="btn btn-success" aria-disabled="false">New Application</a>
-            <h4 class="mt-2">Job Applications:</h4>
-            {% for j in jobs %}
-            <div class="job-box-outer">
-                <p class="job-link"><a href="{% url 'job' j.pk%}">{{ j }}</a></p>
-            </div>
-            {% endfor %}
+            <ul class="list-group mt-3">
+                {% for j in jobs %}
+                <li class="list-group-item"><a href="{% url 'job' j.pk %}" class="job-link">{{ j }}</a></li>
+                {% endfor %}
+            </ul>
         </div>
-        <div class="col-6"></div>
     </div>
 </section>
 

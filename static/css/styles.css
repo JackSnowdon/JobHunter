@@ -43,6 +43,19 @@
 
 /* Portal */
 
+.list-group-item {
+    color: #1D1115;
+    transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+    -o-transition: all 0.35s ease-in-out;
+}
+
+.list-group-item:hover {
+    background-color: #dedfde;
+    text-decoration: none;
+}
+
 .job-box-outer {
     height: 75px;
     width: 100%;
@@ -50,8 +63,7 @@
     margin-bottom: 3.5px;
 }
 
-.job-link a {
-    margin-left: 3px;
+.job-link {
     color: #1D1115;
     transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
@@ -59,7 +71,7 @@
     -o-transition: all 0.25s ease-in-out;
 }
 
-.job-link a:hover {
+.job-link:hover {
     text-decoration: none;
-    color: #267c35;
+    color: #292b29;
 }

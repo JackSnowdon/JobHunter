@@ -101,3 +101,10 @@ def view_all_applications(request):
     profile = request.user.profile
     jobs = profile.jobs.all().order_by("date")
     return render(request, "view_all_applications.html", {"jobs": jobs})
+
+
+@login_required
+def filtered_applications(request, filt):
+    profile = request.user.profile
+    jobs = profile.jobs.all().order_by("date").filter(status=filt)
+    return render(request, "filtered_applications.html", {"jobs": jobs, "filt": filt})

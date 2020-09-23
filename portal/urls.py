@@ -9,4 +9,5 @@ urlpatterns = [
     path(r'update_job_notes/<int:pk>/', update_job_notes, name="update_job_notes"),
     path(r'update_job_status/<int:pk>/', update_job_status, name="update_job_status"),
     path('view_all_applications/', view_all_applications, name="view_all_applications"),
+    path(r'filtered_applications/<str:filt>/', filtered_applications, name="filtered_applications"),
 ]

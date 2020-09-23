@@ -1,9 +1,10 @@
-{% extends 'base.html' %} {% load static %} {% block page_title %} Job Hunter | {{ profile }}'s Applications{% endblock %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block page_title %} Job Hunter | {{ profile }}'s {{ filt }} Applications{% endblock %} {% block content %}
 
 <section class="button-nav">
     <div class="row mb-5">
         <div class="col-12">
-            <a href="{% url 'portal' %}" role="button" class="btn btn-warning" aria-disabled="false">Back</a>
+            <a href="{% url 'portal' %}" role="button" class="btn btn-warning" aria-disabled="false">Portal</a>
+            <a href="{% url 'view_all_applications' %}" role="button" class="btn btn-warning" aria-disabled="false">All Jobs</a>
         </div>
     </div>
 </section>
@@ -11,7 +12,7 @@
 <section class="header">
     <div class="row">
         <div class="col-12 text-center">
-            <h2 class="headliner-text">{{ user.profile }}'s Applications</h1>
+            <h2 class="headliner-text">{{ user.profile }}'s {{ filt }} Applications</h1>
         </div>
     </div>
 </section>
@@ -19,8 +20,9 @@
 <section class="jobs">
     <div class="row">
         <div class="col-12">
-            <p>Total Applications: {{ jobs.count }}</p>
+            <p>Total {{ filt }}: {{ jobs.count }}</p>
             <a href="{% url 'new_job_application' %}" role="button" class="btn btn-success mb-3" aria-disabled="false">New Application</a>
+            <a href="{% url 'view_all_applications' %}" role="button" class="btn btn-success mb-3" aria-disabled="false">All</a>
             <a href="{% url 'filtered_applications' 'Applied' %}" role="button" class="btn btn-success mb-3" aria-disabled="false">Applied</a>
             <a href="{% url 'filtered_applications' 'Interview' %}" role="button" class="btn btn-success mb-3" aria-disabled="false">Interview</a>
             <a href="{% url 'filtered_applications' 'Tech Test' %}" role="button" class="btn btn-success mb-3" aria-disabled="false">Tech Test</a>
@@ -29,7 +31,7 @@
             <a href="{% url 'filtered_applications' 'Rejected' %}" role="button" class="btn btn-success mb-3" aria-disabled="false">Rejected</a>
         </div>
         <div class="col-12 mb-3">
-            <h5>All Applications:</h5>
+            <h5>{{ filt }} Applications:</h5>
             <ul class="list-group">
                 {% for j in jobs %}
                 <li class="list-group-item"><a href="{% url 'job' j.pk %}" class="job-link">{{ j }}</a></li>

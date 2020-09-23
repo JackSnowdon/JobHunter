@@ -8,3 +8,9 @@ class NewJobForm(forms.ModelForm):
         model = Job
         exclude = ['profile']
 
+
+class JobNotesForm(forms.ModelForm):
+
+    class Meta:
+        model = Job
+        fields = ['notes']

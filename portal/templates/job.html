@@ -25,7 +25,10 @@
         </div>
         <div class="col-8">
             <h5>Notes:</h5>
-            <p>{{ job.notes }}</p>
+            <div class="job-notes">
+                {{ job.notes|linebreaks }}
+            </div>
+            <a href="{% url 'update_job_notes' job.pk %}" role="button" class="btn btn-success" aria-disabled="false">Update Notes</a>
         </div>
     </div>
 </section>

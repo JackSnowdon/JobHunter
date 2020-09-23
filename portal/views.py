@@ -48,3 +48,22 @@ def delete_job(request, pk):
     else:
         messages.error(request, f"Job Not Yours To Delete", extra_tags="alert")
         return redirect("party_home")
+
+
+@login_required
+def update_job_notes(request, pk):
+    job = get_object_or_404(Job, pk=pk)
+    if job.profile == request.user.profile:
+        if request.method == "POST":
+            job_form = JobNotesForm(request.POST, instance=job)
+            if job_form.is_valid():
+                form = job_form.save(commit=False)
+                form.save()
+                messages.error(request, f"Update {job} Notes", extra_tags="alert")
+                return redirect("job", job.pk)    
+        else:
+            job_form = JobNotesForm(instance=job)
+        return render(request, "update_job_notes.html", {"job_form": job_form, "job": job})
+    else:
+        messages.error(request, f"Job Not Yours To Update", extra_tags="alert")
+        return redirect("index")

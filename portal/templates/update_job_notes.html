@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% load static %} {% load crispy_forms_tags %} {% block page_title %} Job Hunter | Updating {{ job }} Notes {% endblock %} {% block content %}
+
+<section class="button-nav">
+    <div class="row mb-5">
+        <div class="col-12">
+            <a href="{% url 'portal' %}" role="button" class="btn btn-warning" aria-disabled="false">Back</a>
+        </div>
+    </div>
+</section>
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h1>Updating {{ job }} Notes</h1>
+    </div>
+</div>
+
+<form role="form" method="post" id="update_job_notes_form">
+    <div class="form-group body-text">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-12 mb-0">
+                {{ job_form.notes|as_crispy_field }}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-12 text-center">
+                <input class="btn btn-success" id="sumbit_updated_job_notes" name="commit" type="submit" value="Update Notes">
+            </div>
+        </div>
+        <br>
+    </div>
+</form>
+
+{% endblock %}

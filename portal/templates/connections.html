@@ -19,13 +19,19 @@
 
 <section class="connections">
     <div class="row mb-5">
+        <div class="col-12 mb-3">
+            <a href="{% url 'new_connection_entry' %}" role="button" class="btn btn-success mb-3" aria-disabled="false">Log Connection</a>
+            <h5>All Connections: {{ total_cons }}</h5>
+        </div>
         <div class="col-12">
-            <h5>All Connections: {% for t, c in total_cons.items %} {{ c }} {% endfor %}</h5>
-            <ul class="list-group">
-                {% for c in cons %}
-                <li class="list-group-item">{{ c }}</li>
-                {% endfor %}
-            </ul>
+            <h5>Today Cons: {{ today_cons_total }}</h5>
+            <p>{{ today }}</p>
+        </div>
+        <div class="col-12">
+            <h5>Yesterday: {{ yday_cons_total }}</h5>
+        </div>
+        <div class="col-12">
+            <h5>Last Week: {{ week_cons_total }}</h5>
         </div>
     </div>
 </section>

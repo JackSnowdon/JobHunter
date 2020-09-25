@@ -20,8 +20,8 @@ def portal(request):
     week_ago = today - timedelta(days=7)
     week_jobs = jobs.filter(date__gte=week_ago)
     cons = profile.connects.all()
-    today_cons_total = get_single_day_cons(cons, 0)
-    yday_cons_total = get_single_day_cons(cons, 1)
+    _, today_cons_total = get_single_day_cons(cons, 0)
+    _, yday_cons_total = get_single_day_cons(cons, 1)
     return render(request, "portal.html", {"profile": profile, "jobs": jobs, "today_jobs": today_jobs, "today": today,
                                             "yday": yday, "yday_jobs": yday_jobs, "week_ago": week_ago, "week_jobs": week_jobs,
                                             "today_cons_total": today_cons_total, "yday_cons_total": yday_cons_total})
@@ -53,16 +53,17 @@ def get_single_day_cons(cons, counter):
     so on
     return total
     """
-    total = 0
     today = date.today()
     if counter == 0:
         target_cons = cons.filter(date=today)
     else:
         day = today - timedelta(days=counter)
         target_cons = cons.filter(date=day)
-    for c in target_cons:
-        total += c.amount
-    return total
+    con_dict = target_cons.aggregate(Sum('amount'))
+    total = list(con_dict.values())[0]
+    if total == None:
+        total = 0
+    return target_cons, total
 
 
 @login_required
@@ -196,8 +197,35 @@ def delete_note(request, pk):
 def connections(request):
     profile = request.user.profile
     cons = profile.connects.all().order_by("-date")
-    total_cons = cons.aggregate(Sum('amount'))
-    return render(request, "connections.html", {"cons": cons, "total_cons": total_cons})
+    today = date.today()
+    total_cons = get_sum_value(cons, 0)
+    today_cons, today_cons_total = get_single_day_cons(cons, 0)
+    yday_cons, yday_cons_total = get_single_day_cons(cons, 1)
+    week_cons_total = get_sum_value(cons, 7)
+    return render(request, "connections.html", {"cons": cons, "today": today, 
+                                            "today_cons_total": today_cons_total, "total_cons": total_cons,
+                                            "yday_cons_total": yday_cons_total,
+                                            "week_cons_total": week_cons_total})
+
+
+def get_sum_value(con_query, counter):
+    """
+    Takes queryset and int for amount
+    0 for today only
+    1 for today + yesterday
+    2 for tday + yday + day before
+    so on
+    return total
+    """
+    today = date.today()
+    if counter == 0:
+        cons = con_query.filter(date=today)
+    else:
+        day = today - timedelta(days=counter)
+        cons = con_query.filter(date__gte=day)
+    con_dict = cons.aggregate(Sum('amount'))
+    con_list = list(con_dict.values())[0]
+    return con_list
 
 
 @login_required
@@ -209,7 +237,7 @@ def new_connection_entry(request):
             form.profile = request.user.profile
             form.save()
             messages.error(request, f"{form.amount} New Connections Added", extra_tags="alert")
-            return redirect("portal")  
+            return redirect("connections")  
     else:
         con_form = NewConnectionForm()
     return render(request, "new_connection_entry.html", {"con_form": con_form})

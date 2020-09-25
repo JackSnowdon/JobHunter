@@ -63,6 +63,7 @@
     margin-bottom: 3.5px;
 }
 
+.con-link,
 .job-link {
     color: #1D1115;
     transition: all 0.25s ease-in-out;
@@ -103,4 +104,9 @@
 
 .delete-note:hover {
     color: #ec2525;
+}
+
+.con-link:hover {
+    text-decoration: none;
+    color: #2310ce;
 }

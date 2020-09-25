@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Sum
 from datetime import date, timedelta
 from .models import *
 from .forms import *
@@ -190,6 +191,14 @@ def delete_note(request, pk):
 
 
 # Connections
+
+@login_required
+def connections(request):
+    profile = request.user.profile
+    cons = profile.connects.all().order_by("-date")
+    total_cons = cons.aggregate(Sum('amount'))
+    return render(request, "connections.html", {"cons": cons, "total_cons": total_cons})
+
 
 @login_required
 def new_connection_entry(request):

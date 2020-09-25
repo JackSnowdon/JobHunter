@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% load static %} {% block page_title %} Job Hunter | {{ user.profile }} Connections{% endblock %} {% block content %}
+
+<section class="button-nav">
+    <div class="row mb-5">
+        <div class="col-12">
+            <a href="{% url 'portal' %}" role="button" class="btn btn-warning" aria-disabled="false">Portal</a>
+            <a href="{% url 'view_all_applications' %}" role="button" class="btn btn-success" aria-disabled="false">All Jobs</a>
+        </div>
+    </div>
+</section>
+
+<section class="header">
+    <div class="row">
+        <div class="col-12">
+            <h1>Connections</h1>
+        </div>
+    </div>
+</section>
+
+<section class="connections">
+    <div class="row mb-5">
+        <div class="col-12">
+            <h5>All Connections: {% for t, c in total_cons.items %} {{ c }} {% endfor %}</h5>
+            <ul class="list-group">
+                {% for c in cons %}
+                <li class="list-group-item">{{ c }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

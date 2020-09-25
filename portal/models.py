@@ -37,6 +37,11 @@ class Job(models.Model):
         return self.role
 
 
-#class Note(models.Model):
-#    job = models.ForeignKey(Job, related_name='noted', on_delete=models.CASCADE)
+class Note(models.Model):
+    job = models.ForeignKey(Job, related_name='noted', on_delete=models.CASCADE)
+    content = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.job}'s Note"
 

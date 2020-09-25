@@ -11,4 +11,5 @@ urlpatterns = [
     path(r'update_job_company/<int:pk>/', update_job_company, name="update_job_company"),
     path('view_all_applications/', view_all_applications, name="view_all_applications"),
     path(r'filtered_applications/<str:filt>/', filtered_applications, name="filtered_applications"),
+    path(r'new_note/<int:pk>/', new_note, name="new_note"),
 ]

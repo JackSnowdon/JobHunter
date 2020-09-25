@@ -28,3 +28,10 @@ class JobCompanyForm(forms.ModelForm):
     class Meta:
         model = Job
         fields = ['company']
+
+
+class NewNoteForm(forms.ModelForm):
+
+    class Meta:
+        model = Note
+        fields = ['content']

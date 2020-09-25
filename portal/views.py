@@ -58,6 +58,7 @@ def new_job_application(request):
 @login_required
 def job(request, pk):
     job = get_object_or_404(Job, pk=pk)
+    print(job.noted.all())
     profile = request.user.profile
     return render(request, "job.html", {"job": job})
 
@@ -145,4 +146,26 @@ def filtered_applications(request, filt):
     profile = request.user.profile
     jobs = profile.jobs.all().order_by("date").filter(status=filt)
     return render(request, "filtered_applications.html", {"jobs": jobs, "filt": filt})
+
+
+# Note
+
+@login_required
+def new_note(request, pk):
+    job = get_object_or_404(Job, pk=pk)
+    if job.profile == request.user.profile:
+        if request.method == "POST":
+            note_form = NewNoteForm(request.POST)
+            if note_form.is_valid():
+                form = note_form.save(commit=False)
+                form.job = job
+                form.save()
+                messages.error(request, f"Updated {job} Notes", extra_tags="alert")
+                return redirect("job", job.pk)  
+        else:
+            note_form = NewNoteForm()
+        return render(request, "new_note.html", {"note_form": note_form, "job": job})
+    else:
+        messages.error(request, f"Job Not Yours To Update", extra_tags="alert")
+        return redirect("index")
 

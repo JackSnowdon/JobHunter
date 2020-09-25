@@ -28,3 +28,11 @@ class NewNoteForm(forms.ModelForm):
     class Meta:
         model = Note
         fields = ['content']
+
+
+class NewConnectionForm(forms.ModelForm):
+
+    class Meta:
+        model = Connection
+        fields = ['amount']
+

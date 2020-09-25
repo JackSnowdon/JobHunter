@@ -10,11 +10,15 @@
 
 <section class="jobs">
     <div class="row">
-        <div class="col-12">
+        <div class="col-md-6 col-12">
             <h4>Jobs:</h4>
             <p>Total Applications: {{ jobs.count }}</p>
             <a href="{% url 'new_job_application' %}" role="button" class="btn btn-success mb-3" aria-disabled="false">New Application</a>
             <a href="{% url 'view_all_applications' %}" role="button" class="btn btn-success mb-3" aria-disabled="false">All Applications</a>
+        </div>
+        <div class="col-md-6 col-12">
+            <h4>LinkedIn Connections Today: </h4>
+            <a href="{% url 'new_connection_entry' %}" role="button" class="btn btn-success mb-3" aria-disabled="false">Log Connections</a>
         </div>
         <div class="col-12 mb-3">
             <h5>Todays Applications: {{today|date:"j/m/y"}}</h5>

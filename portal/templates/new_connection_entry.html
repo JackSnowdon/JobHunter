@@ -1,9 +1,8 @@
-{% extends 'base.html' %} {% load static %} {% load crispy_forms_tags %} {% block page_title %} Job Hunter | Updating {{ job }} Notes {% endblock %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% load crispy_forms_tags %} {% block page_title %} Job Hunter | New Connections {% endblock %} {% block content %}
 
 <section class="button-nav">
     <div class="row mb-5">
         <div class="col-12">
-            <a href="{% url 'job' job.pk %}" role="button" class="btn btn-success" aria-disabled="false">{{ job }}</a>
             <a href="{% url 'portal' %}" role="button" class="btn btn-warning" aria-disabled="false">Portal</a>
         </div>
     </div>
@@ -12,23 +11,23 @@
 <section class="header">
     <div class="row">
         <div class="col-12 text-center">
-            <h1>Updating {{ job }} Notes</h1>
+            <h1>New Connection Entry</h1>
         </div>
     </div>
 </section>
 
-<form role="form" method="post" id="update_job_notes_form">
+<form role="form" method="post" id="new_connection_form" action="{% url 'new_connection_entry' %}">
     <div class="form-group body-text">
         {% csrf_token %}
         <div class="form-row">
             <div class="form-group col-12 mb-0">
-                {{ job_form.notes|as_crispy_field }}
+                {{ con_form.amount|as_crispy_field }}
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-12 text-center">
-                <input class="btn btn-success" id="sumbit_updated_job_notes" name="commit" type="submit" value="Update Notes">
+                <input class="btn btn-success" id="sumbit_connections_entry" name="commit" type="submit" value="Log Connections">
             </div>
         </div>
         <br>

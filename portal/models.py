@@ -44,3 +44,11 @@ class Note(models.Model):
     def __str__(self):
         return f"{self.job}'s Note"
 
+
+class Connection(models.Model):
+    profile = models.ForeignKey(Profile, related_name='connects', on_delete=models.CASCADE)
+    amount = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)], default=1)
+    date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.amount} connections on {date}"

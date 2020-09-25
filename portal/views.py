@@ -128,7 +128,7 @@ def filtered_applications(request, filt):
     return render(request, "filtered_applications.html", {"jobs": jobs, "filt": filt})
 
 
-# Note
+# Notes
 
 @login_required
 def new_note(request, pk):
@@ -164,3 +164,19 @@ def delete_note(request, pk):
         messages.error(request, f"Note Not Yours To Delete", extra_tags="alert")
         return redirect("party_home")
 
+
+# Connections
+
+@login_required
+def new_connection_entry(request):
+    if request.method == "POST":
+        con_form = NewConnectionForm(request.POST)
+        if con_form.is_valid():
+            form = con_form.save(commit=False)
+            form.profile = request.user.profile
+            form.save()
+            messages.error(request, f"{form.amount} New Connections Added", extra_tags="alert")
+            return redirect("portal")  
+    else:
+        con_form = NewConnectionForm()
+    return render(request, "new_connection_entry.html", {"con_form": con_form})

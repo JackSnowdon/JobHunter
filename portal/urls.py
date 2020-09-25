@@ -12,4 +12,5 @@ urlpatterns = [
     path(r'filtered_applications/<str:filt>/', filtered_applications, name="filtered_applications"),
     path(r'new_note/<int:pk>/', new_note, name="new_note"),
     path(r'delete_note/<int:pk>/', delete_note, name="delete_note"),
+    path('new_connection_entry/', new_connection_entry, name="new_connection_entry")
 ]

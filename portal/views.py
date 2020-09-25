@@ -18,8 +18,12 @@ def portal(request):
     yday, yday_jobs = get_single_day_jobs(jobs, 1)
     week_ago = today - timedelta(days=7)
     week_jobs = jobs.filter(date__gte=week_ago)
+    cons = profile.connects.all()
+    today_cons_total = get_single_day_cons(cons, 0)
+    yday_cons_total = get_single_day_cons(cons, 1)
     return render(request, "portal.html", {"profile": profile, "jobs": jobs, "today_jobs": today_jobs, "today": today,
-                                            "yday": yday, "yday_jobs": yday_jobs, "week_ago": week_ago, "week_jobs": week_jobs })
+                                            "yday": yday, "yday_jobs": yday_jobs, "week_ago": week_ago, "week_jobs": week_jobs,
+                                            "today_cons_total": today_cons_total, "yday_cons_total": yday_cons_total})
 
 
 def get_single_day_jobs(jobs, day_counter):
@@ -38,6 +42,26 @@ def get_single_day_jobs(jobs, day_counter):
         day = today - timedelta(days=day_counter)
         sorted_jobs = jobs.filter(date=day)
         return day, sorted_jobs
+
+
+def get_single_day_cons(cons, counter):
+    """
+    Takes queryset and int for amount
+    0 for today
+    1 for yesterday
+    so on
+    return total
+    """
+    total = 0
+    today = date.today()
+    if counter == 0:
+        target_cons = cons.filter(date=today)
+    else:
+        day = today - timedelta(days=counter)
+        target_cons = cons.filter(date=day)
+    for c in target_cons:
+        total += c.amount
+    return total
 
 
 @login_required

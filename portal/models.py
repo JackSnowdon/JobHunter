@@ -51,4 +51,4 @@ class Connection(models.Model):
     date = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.amount} connections on {date}"
+        return f"{self.amount} connections on {self.date}"

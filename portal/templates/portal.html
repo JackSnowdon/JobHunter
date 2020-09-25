@@ -25,10 +25,18 @@
                 {% endfor %}
             </ul>
         </div>
-        <div class="col-12 mb-3">
+        <!-- <div class="col-12 mb-3">
             <h5>Yesterdays Applications: {{yday|date:"j/m/y"}}</h5>
             <ul class="list-group">
                 {% for j in yday_jobs %}
+                <li class="list-group-item"><a href="{% url 'job' j.pk %}" class="job-link">{{ j }}</a></li>
+                {% endfor %}
+            </ul>
+        </div> -->
+        <div class="col-12 mb-3">
+            <h5>This Weeks Applications: {{week_ago|date:"j/m/y"}} - {{today|date:"j/m/y"}}</h5>
+            <ul class="list-group">
+                {% for j in week_jobs %}
                 <li class="list-group-item"><a href="{% url 'job' j.pk %}" class="job-link">{{ j }}</a></li>
                 {% endfor %}
             </ul>

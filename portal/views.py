@@ -13,13 +13,31 @@ from .forms import *
 @login_required
 def portal(request):
     profile = request.user.profile
-    jobs = profile.jobs.all().order_by("date")
-    today = date.today()
-    today_jobs = jobs.filter(date=today)
-    yday = today - timedelta(days=1)
-    yday_jobs = jobs.filter(date=yday)
+    jobs = profile.jobs.all().order_by("-date")
+    today, today_jobs = get_single_day_jobs(jobs, 0)
+    yday, yday_jobs = get_single_day_jobs(jobs, 1)
+    week_ago = today - timedelta(days=7)
+    week_jobs = jobs.filter(date__gte=week_ago)
     return render(request, "portal.html", {"profile": profile, "jobs": jobs, "today_jobs": today_jobs, "today": today,
-                                            "yday": yday, "yday_jobs": yday_jobs})
+                                            "yday": yday, "yday_jobs": yday_jobs, "week_ago": week_ago, "week_jobs": week_jobs })
+
+
+def get_single_day_jobs(jobs, day_counter):
+    """
+    Takes queryset and int for days
+    0 for today
+    1 for yesterday
+    so on
+    return (Sorted Data, Date)
+    """
+    today = date.today()
+    if day_counter == 0:
+        sorted_jobs = jobs.filter(date=today)
+        return today, sorted_jobs
+    else:
+        day = today - timedelta(days=day_counter)
+        sorted_jobs = jobs.filter(date=day)
+        return day, sorted_jobs
 
 
 @login_required

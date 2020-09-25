@@ -12,8 +12,15 @@
 
 <section class="header">
     <div class="row mb-5">
-        <div class="col-12 text-center">
+        <div class="col-12">
             <h1 class="headliner-text">{{ job }}</h1>
+            {% if job.company != None %}
+            <h3 class="ml-2">- {{ job.company }}</h3>
+            {% else %}
+            <a href="{% url 'update_job_company' job.pk %}" class="job-link">
+                <p class="ml-2 mb-0">- Company Unknown</p>
+            </a>
+            {% endif %}
         </div>
     </div>
 </section>
@@ -23,7 +30,7 @@
         <div class="col-4">
             <h5>Applied On: {{ job.date|date:"j/m/y" }}</h5>
             {% if job.post_link == None %}
-            <p> Link: {{ job.applied_on }}</p>
+            <p> Applied On {{ job.applied_on }}</p>
             {% else %}
             <a href="{{ job.post_link }}" class="post-link" target="_blank">
                 <p> {{ job.applied_on }} Listing</p>

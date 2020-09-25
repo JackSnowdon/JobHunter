@@ -30,7 +30,8 @@ class Job(models.Model):
         default=APPLIED,
     )
     post_link = models.URLField(null=True, blank=True)
-    
+    company = models.CharField(max_length=255, null=True, blank=True)
+
     
     def __str__(self):
         return self.role

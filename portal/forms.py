@@ -21,3 +21,10 @@ class JobStatusForm(forms.ModelForm):
     class Meta:
         model = Job
         fields = ['status']
+
+
+class JobCompanyForm(forms.ModelForm):
+
+    class Meta:
+        model = Job
+        fields = ['company']

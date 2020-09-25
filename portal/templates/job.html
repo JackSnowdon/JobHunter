@@ -27,7 +27,7 @@
 
 <section class="job-content">
     <div class="row">
-        <div class="col-md-4 col-12 mb-3">
+        <div class="col-md-3 col-12 mb-3">
             <h5>Applied On: {{ job.date|date:"j/m/y" }}</h5>
             <div class="ml-2 mb-2">
                 <p class="mb-1"> Last Update: {{ job.last_updated|date:"j/m/y" }}</p>
@@ -40,27 +40,16 @@
                 {% endif %}
                 <p> Status: {{ job.status }}</p>
             </div>
-            <a href="{% url 'update_job_status' job.pk %}" role="button" class="btn btn-success" aria-disabled="false">Update Status</a>
-        </div>
-        <div class="col-md-8 col-12">
-            <h5>Notes:</h5>
-            <div class="job-notes">
-                {{ job.notes|linebreaks }}
-            </div>
-            <a href="{% url 'update_job_notes' job.pk %}" role="button" class="btn btn-success" aria-disabled="false">Update Notes</a>
-        </div>
-    </div>
-</section>
-
-<section class="notes">
-    <div class="row">
-        <div class="col-12">
+            <a href="{% url 'update_job_status' job.pk %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Update Status</a>
+            <br>
             <a href="{% url 'new_note' job.pk %}" role="button" class="btn btn-success" aria-disabled="false">New Note</a>
-            <h3>Notes:</h3>
-            {% for n in job.noted.all %}
-            <p>Created On: {{ n.created_on }}</p>
-            <div class="">{{ n.content|linebreaks }}
-            </div> {% endfor %}
+        </div>
+        <div class="col-md-9 col-12 mb-3">
+            <h5>Notes:</h5>
+            {% for n in job.notes.all %}
+            <div class="ml-2">{{ n.content|linebreaks }}
+            </div>
+            <p class="mt-0">{{ n.created_on }}</p>{% endfor %}
         </div>
     </div>
 </section>

@@ -7,7 +7,6 @@ from accounts.models import Profile
 class Job(models.Model):
     role = models.CharField(max_length=255)
     applied_on = models.CharField(max_length=255)
-    notes = models.TextField()
     date = models.DateField(auto_now_add=True)
     profile = models.ForeignKey(Profile, related_name='jobs', on_delete=models.CASCADE)
     APPLIED = 'Applied'
@@ -38,7 +37,7 @@ class Job(models.Model):
 
 
 class Note(models.Model):
-    job = models.ForeignKey(Job, related_name='noted', on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, related_name='notes', on_delete=models.CASCADE)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
 

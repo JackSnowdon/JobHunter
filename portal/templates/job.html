@@ -35,7 +35,7 @@
                 <p class="mb-1"> Found Via {{ job.applied_on }}</p>
                 {% else %}
                 <a href="{{ job.post_link }}" class="post-link" target="_blank">
-                    <p> {{ job.applied_on }} Listing</p>
+                    <p class="mb-1"> {{ job.applied_on }} Listing</p>
                 </a>
                 {% endif %}
                 <p> Status: {{ job.status }}</p>
@@ -49,7 +49,8 @@
             {% for n in job.notes.all %}
             <div class="ml-2">{{ n.content|linebreaks }}
             </div>
-            <p class="mt-0">{{ n.created_on }}</p>{% endfor %}
+            <p class="mt-0">{{ n.created_on }} <a href="{% url 'delete_note' n.pk %}" class="delete-note" onclick="return confirm('Delete Note?');"><i class="far fa-trash-alt"></i></a></p>
+            {% endfor %}
         </div>
     </div>
 </section>

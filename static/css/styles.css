@@ -83,7 +83,6 @@
 
 .post-link {
     color: #14a094;
-    font-size: 22px;
     transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
     -webkit-transition: all 0.25s ease-in-out;
@@ -92,4 +91,16 @@
 
 .post-link:hover {
     color: #1D1115;
+}
+
+.delete-note {
+    color: #d30c0c;
+    transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+}
+
+.delete-note:hover {
+    color: #ec2525;
 }

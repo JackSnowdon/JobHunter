@@ -117,14 +117,14 @@ def update_job_company(request, pk):
 @login_required
 def view_all_applications(request):
     profile = request.user.profile
-    jobs = profile.jobs.all().order_by("date")
+    jobs = profile.jobs.all().order_by("-date")
     return render(request, "view_all_applications.html", {"jobs": jobs})
 
 
 @login_required
 def filtered_applications(request, filt):
     profile = request.user.profile
-    jobs = profile.jobs.all().order_by("date").filter(status=filt)
+    jobs = profile.jobs.all().order_by("-date").filter(status=filt)
     return render(request, "filtered_applications.html", {"jobs": jobs, "filt": filt})
 
 
@@ -148,4 +148,19 @@ def new_note(request, pk):
     else:
         messages.error(request, f"Job Not Yours To Update", extra_tags="alert")
         return redirect("index")
+
+
+@login_required
+def delete_note(request, pk):
+    note = get_object_or_404(Note, pk=pk)
+    job = note.job
+    if job.profile == request.user.profile:
+        note.delete()
+        messages.error(
+            request, f"Deleted {note}", extra_tags="alert"
+        )
+        return redirect("job", job.pk)  
+    else:
+        messages.error(request, f"Note Not Yours To Delete", extra_tags="alert")
+        return redirect("party_home")
 

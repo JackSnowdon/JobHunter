@@ -22,7 +22,13 @@
     <div class="row">
         <div class="col-4">
             <h5>Applied On: {{ job.date|date:"j/m/y" }}</h5>
-            <p> {{ job.applied_on }}</p>
+            {% if job.post_link == None %}
+            <p> Link: {{ job.applied_on }}</p>
+            {% else %}
+            <a href="{{ job.post_link }}" class="post-link" target="_blank">
+                <p> {{ job.applied_on }} Listing</p>
+            </a>
+            {% endif %}
             <p> Status: {{ job.status }}</p>
             <a href="{% url 'update_job_status' job.pk %}" role="button" class="btn btn-success" aria-disabled="false">Update Status</a>
         </div>

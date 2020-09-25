@@ -80,3 +80,16 @@
     font-size: 16px;
     font-weight: 400;
 }
+
+.post-link {
+    color: #14a094;
+    font-size: 22px;
+    transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+}
+
+.post-link:hover {
+    color: #1D1115;
+}

@@ -3,7 +3,8 @@
 <section class="button-nav">
     <div class="row mb-5">
         <div class="col-12">
-            <a href="{% url 'portal' %}" role="button" class="btn btn-warning" aria-disabled="false">Back</a>
+            <a href="{% url 'job' job.pk %}" role="button" class="btn btn-success" aria-disabled="false">{{ job }}</a>
+            <a href="{% url 'portal' %}" role="button" class="btn btn-warning" aria-disabled="false">Portal</a>
         </div>
     </div>
 </section>

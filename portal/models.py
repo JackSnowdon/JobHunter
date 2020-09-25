@@ -29,6 +29,8 @@ class Job(models.Model):
         choices=STATUS_CHOICES,
         default=APPLIED,
     )
+    post_link = models.URLField(null=True, blank=True)
+    
     
     def __str__(self):
         return self.role

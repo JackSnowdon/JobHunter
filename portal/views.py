@@ -198,7 +198,7 @@ def connections(request):
     profile = request.user.profile
     cons = profile.connects.all().order_by("-date")
     today = date.today()
-    total_cons = get_sum_value(cons, 0)
+    total_cons = get_sum_value(cons, "all")
     today_cons, today_cons_total = get_single_day_cons(cons, 0)
     yday_cons, yday_cons_total = get_single_day_cons(cons, 1)
     week_cons_total = get_sum_value(cons, 7)
@@ -220,6 +220,10 @@ def get_sum_value(con_query, counter):
     today = date.today()
     if counter == 0:
         cons = con_query.filter(date=today)
+    elif counter == "all":
+        ob = con_query.last()
+        start_date = ob.date
+        cons = con_query.filter(date__gte=start_date)
     else:
         day = today - timedelta(days=counter)
         cons = con_query.filter(date__gte=day)

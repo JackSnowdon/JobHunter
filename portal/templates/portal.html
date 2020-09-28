@@ -1,5 +1,15 @@
 {% extends 'base.html' %} {% load static %} {% block page_title %} Job Hunter | {{ profile }}'s Portal{% endblock %} {% block content %}
 
+<section class="button-nav">
+    <div class="row mb-5">
+        <div class="col-12">
+            <a href="{% url 'portal' %}" role="button" class="btn btn-warning" aria-disabled="false">Portal</a>
+            <a href="{% url 'view_all_applications' %}" role="button" class="btn btn-success" aria-disabled="false">All Jobs</a>
+            <a href="{% url 'connections' %}" role="button" class="btn btn-info" aria-disabled="false">Connections</a>
+        </div>
+    </div>
+</section>
+
 <section class="header">
     <div class="row mb-3">
         <div class="col-12 text-center">
@@ -42,7 +52,7 @@
             </ul>
         </div> -->
         <div class="col-12 mb-3">
-            <h5>This Weeks Applications: {{week_ago|date:"j/m/y"}} - {{today|date:"j/m/y"}}</h5>
+            <h5>Last 7 Days Applications: {{week_ago|date:"j/m/y"}} - {{today|date:"j/m/y"}}</h5>
             <ul class="list-group">
                 {% for j in week_jobs %}
                 <li class="list-group-item"><a href="{% url 'job' j.pk %}" class="job-link">{{ j }}</a></li>

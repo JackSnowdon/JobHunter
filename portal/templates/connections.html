@@ -5,6 +5,7 @@
         <div class="col-12">
             <a href="{% url 'portal' %}" role="button" class="btn btn-warning" aria-disabled="false">Portal</a>
             <a href="{% url 'view_all_applications' %}" role="button" class="btn btn-success" aria-disabled="false">All Jobs</a>
+            <a href="{% url 'connections' %}" role="button" class="btn btn-info" aria-disabled="false">Connections</a>
         </div>
     </div>
 </section>
@@ -24,8 +25,8 @@
             <h5>All Connections: {{ total_cons }}</h5>
         </div>
         <div class="col-12">
-            <h5>Today Cons: {{ today_cons_total }}</h5>
             <p>{{ today }}</p>
+            <h5>Today Cons: {{ today_cons_total }}</h5>
         </div>
         <div class="col-12">
             <h5>Yesterday: {{ yday_cons_total }}</h5>

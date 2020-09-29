@@ -10,6 +10,7 @@ urlpatterns = [
     path(r'update_job_company/<int:pk>/', update_job_company, name="update_job_company"),
     path('view_all_applications/', view_all_applications, name="view_all_applications"),
     path(r'filtered_applications/<str:filt>/', filtered_applications, name="filtered_applications"),
+    path(r'change_job_archive/<int:pk>/', change_job_archive, name="change_job_archive"),
     path(r'new_note/<int:pk>/', new_note, name="new_note"),
     path(r'delete_note/<int:pk>/', delete_note, name="delete_note"),
     path('connections/', connections, name="connections"),

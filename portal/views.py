@@ -154,6 +154,23 @@ def filtered_applications(request, filt):
     return render(request, "filtered_applications.html", {"jobs": jobs, "filt": filt})
 
 
+@login_required
+def change_job_archive(request, pk):
+    job = get_object_or_404(Job, pk=pk)
+    if job.profile == request.user.profile:
+        if job.archived == False:
+            job.archived = True
+            messages.error(request, f"{job} Archived", extra_tags="alert")
+        else:
+            job.archived = False
+            messages.error(request, f"{job} Unarchived", extra_tags="alert")
+        job.save()
+        return redirect("job", job.pk)
+    else:
+        messages.error(request, f"Job Not Yours To Update", extra_tags="alert")
+        return redirect("index")
+
+
 # Notes
 
 @login_required

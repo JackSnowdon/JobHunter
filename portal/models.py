@@ -31,6 +31,7 @@ class Job(models.Model):
     post_link = models.URLField(null=True, blank=True)
     company = models.CharField(max_length=255, null=True, blank=True)
     last_updated = models.DateField(auto_now=True)
+    archived = models.BooleanField(default=False)
 
     def __str__(self):
         return self.role

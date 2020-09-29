@@ -40,9 +40,19 @@
                 {% endif %}
                 <p> Status: {{ job.status }}</p>
             </div>
-            <a href="{% url 'update_job_status' job.pk %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Update Status</a>
-            <br>
-            <a href="{% url 'new_note' job.pk %}" role="button" class="btn btn-success" aria-disabled="false">New Note</a>
+            <div class="text-center">
+                {% if job.archived == False %}
+                <a href="{% url 'update_job_status' job.pk %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Update Status</a>
+                <br>
+                <a href="{% url 'new_note' job.pk %}" role="button" class="btn btn-success mb-2" aria-disabled="false">New Note</a>
+                <br>
+                <a href="{% url 'change_job_archive' job.pk %}" role="button" class="btn btn-warning" aria-disabled="false">Archive Job</a>{% else %}
+                <a href="#" role="button" class="btn btn-success mb-2 disabled" aria-disabled="true">Update Status</a>
+                <br>
+                <a href="#" role="button" class="btn btn-success mb-2 disabled" aria-disabled="true">New Note</a>
+                <br>
+                <a href="{% url 'change_job_archive' job.pk %}" role="button" class="btn btn-warning" aria-disabled="false">Unarchive Job</a>{% endif %}
+            </div>
         </div>
         <div class="col-md-9 col-12 mb-3">
             <h5>Notes:</h5>

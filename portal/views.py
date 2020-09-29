@@ -45,27 +45,6 @@ def get_single_day_jobs(jobs, day_counter):
         return day, sorted_jobs
 
 
-def get_single_day_cons(cons, counter):
-    """
-    Takes queryset and int for amount
-    0 for today
-    1 for yesterday
-    so on
-    return total
-    """
-    today = date.today()
-    if counter == 0:
-        target_cons = cons.filter(date=today)
-    else:
-        day = today - timedelta(days=counter)
-        target_cons = cons.filter(date=day)
-    con_dict = target_cons.aggregate(Sum('amount'))
-    total = list(con_dict.values())[0]
-    if total == None:
-        total = 0
-    return target_cons, total
-
-
 @login_required
 def new_job_application(request):
     if request.method == "POST":
@@ -222,14 +201,50 @@ def connections(request):
         messages.error(request, f"Log Connections To Access Connections", extra_tags="alert")
         return redirect("new_connection_entry")
     total_cons = get_sum_value(cons, "all")
-    today_cons, today_cons_total = get_single_day_cons(cons, 0)
-    yday_cons, yday_cons_total = get_single_day_cons(cons, 1)
+    _, today_cons_total = get_single_day_cons(cons, 0)
+    yday, yday_cons_total = get_single_day_cons(cons, 1)
     week_cons_total = get_sum_value(cons, 7)
-    return render(request, "connections.html", {"cons": cons, "today": today, 
-                                            "today_cons_total": today_cons_total, "total_cons": total_cons,
+    last_week_dates = return_day_list(today, 6)
+    weeks_data = return_day_values(last_week_dates, cons)
+    return render(request, "connections.html", {"cons": cons, "today": today, "yday": yday,
+                                            "total_cons": total_cons,
+                                            "today_cons_total": today_cons_total, 
                                             "yday_cons_total": yday_cons_total,
-                                            "week_cons_total": week_cons_total})
+                                            "week_cons_total": week_cons_total, "weeks_data": weeks_data})
 
+
+def return_day_list(today, days):
+    """
+    Takes today (datetime)
+    start_date (datetime)
+    
+    returns list of days between two dates formated for zingcharts
+    """
+    start_date = today - timedelta(days=days)
+    day_base = today - start_date
+    day_list = []
+    for i in range(day_base.days + 1):
+        day = start_date + timedelta(days=i)
+        day_list.append(day)
+    return day_list
+
+
+def return_day_values(day_list, dataset):
+    """
+    Takes day_list and dataset
+
+    returns fomrated graph data for workout on each day
+    """
+    value_list = []
+    for day in day_list:
+        total_amount = 0
+        for c in dataset:
+            if c.date == day:
+                total_amount += c.amount
+        value_list.append(total_amount)
+    info = dict(zip(day_list, value_list))
+    return info
+    
 
 def get_sum_value(con_query, counter):
     """
@@ -253,6 +268,28 @@ def get_sum_value(con_query, counter):
     con_dict = cons.aggregate(Sum('amount'))
     con_list = list(con_dict.values())[0]
     return con_list
+
+
+def get_single_day_cons(cons, counter):
+    """
+    Takes queryset and int for amount
+    0 for today
+    1 for yesterday
+    so on
+    return total
+    """
+    today = date.today()
+    if counter == 0:
+        day = today
+        target_cons = cons.filter(date=today)
+    else:
+        day = today - timedelta(days=counter)
+        target_cons = cons.filter(date=day)
+    con_dict = target_cons.aggregate(Sum('amount'))
+    total = list(con_dict.values())[0]
+    if total == None:
+        total = 0
+    return day, total
 
 
 @login_required

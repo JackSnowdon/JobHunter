@@ -19,20 +19,36 @@
 </section>
 
 <section class="connections">
-    <div class="row mb-5">
+    <div class="row mb-3">
         <div class="col-12 mb-3">
-            <a href="{% url 'new_connection_entry' %}" role="button" class="btn btn-success mb-3" aria-disabled="false">Log Connection</a>
             <h5>All Connections: {{ total_cons }}</h5>
+            <a href="{% url 'new_connection_entry' %}" role="button" class="btn btn-success mb-1" aria-disabled="false">Log Connection</a>
         </div>
+    </div>
+</section>
+
+<section class="last-week mb-3">
+    <div class="row">
         <div class="col-12">
-            <p>{{ today }}</p>
-            <h5>Today Cons: {{ today_cons_total }}</h5>
+            <h5>Last Week Total: {{ week_cons_total }}</h5>
         </div>
-        <div class="col-12">
-            <h5>Yesterday: {{ yday_cons_total }}</h5>
+        <div class="col-md text-center">
+            <p>{{ today|date:"j/m/y" }}</p>
+            <h5>{{ today_cons_total }}</h5>
         </div>
+        <div class="col-md text-center">
+            <p>{{ yday|date:"j/m/y" }}</p>
+            <h5>{{ yday_cons_total }}</h5>
+        </div>
+    </div>
+</section>
+
+<section class="test">
+    <div class="row">
         <div class="col-12">
-            <h5>Last Week: {{ week_cons_total }}</h5>
+            {% for date, amount in weeks_data.items %}
+            <h5>{{ date|date:"j/m/y" }}</h5>
+            <p>{{ amount }}</p>{% endfor %}
         </div>
     </div>
 </section>

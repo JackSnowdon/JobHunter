@@ -3,7 +3,7 @@
 <section class="button-nav">
     <div class="row mb-5">
         <div class="col-12">
-            <a href="{% url 'portal' %}" role="button" class="btn btn-warning" aria-disabled="false">Back</a>
+            <a href="{% url 'portal' %}" role="button" class="btn btn-warning" aria-disabled="false">Portal</a>
             <a href="{% url 'delete_job' job.pk %}" role="button" class="btn btn-danger" aria-disabled="false">Delete</a>
             <a href="{% url 'view_all_applications' %}" role="button" class="btn btn-success" aria-disabled="false">All Jobs</a>
         </div>
@@ -15,12 +15,16 @@
         <div class="col-12">
             <h1 class="headliner-text">{{ job }}</h1>
             {% if job.company != None %}
-            <h3 class="ml-2">- {{ job.company }}</h3>
-            {% else %}
             <a href="{% url 'update_job_company' job.pk %}" class="job-link">
-                <p class="ml-2 mb-0">- Company Unknown</p>
+                <h5 class="ml-2">- {{ job.company }}</h5>
             </a>
-            {% endif %}
+            {% else %} {% if job.archived == False %}
+            <a href="{% url 'update_job_company' job.pk %}" class="job-link">
+                <h5 class="ml-2 mb-0">- Company Unknown</h5>
+            </a>
+            {% else %}
+            <h5 class="ml-2 mb-0">- Company Unknown</h5>
+            {% endif %} {% endif %}
         </div>
     </div>
 </section>
@@ -59,7 +63,7 @@
             {% for n in job.notes.all %}
             <div class="ml-2">{{ n.content|linebreaks }}
             </div>
-            <p class="mt-0">Created On: {{ n.created_on }} <a href="{% url 'delete_note' n.pk %}" class="delete-note" onclick="return confirm('Delete Note?');"><i class="far fa-trash-alt"></i></a></p>
+            <p class="mt-0">Created On: {{ n.created_on }} {% if job.archived == False %}<a href="{% url 'delete_note' n.pk %}" class="delete-note" onclick="return confirm('Delete Note?');"><i class="far fa-trash-alt"></i></a>{% endif %}</p>
             {% endfor %}
         </div>
     </div>

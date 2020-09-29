@@ -6,7 +6,7 @@ class NewJobForm(forms.ModelForm):
 
     class Meta:
         model = Job
-        exclude = ['profile']
+        exclude = ['profile', 'archived']
 
 
 class JobStatusForm(forms.ModelForm):

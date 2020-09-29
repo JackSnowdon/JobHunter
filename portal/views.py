@@ -14,7 +14,7 @@ from .forms import *
 @login_required
 def portal(request):
     profile = request.user.profile
-    jobs = profile.jobs.all().order_by("-date")
+    jobs = profile.jobs.all().order_by("-date").filter(archived=False)
     today, today_jobs = get_single_day_jobs(jobs, 0)
     yday, yday_jobs = get_single_day_jobs(jobs, 1)
     week_ago = today - timedelta(days=7)
@@ -143,14 +143,17 @@ def update_job_company(request, pk):
 @login_required
 def view_all_applications(request):
     profile = request.user.profile
-    jobs = profile.jobs.all().order_by("-date")
+    jobs = profile.jobs.all().order_by("-date").filter(archived=False)
     return render(request, "view_all_applications.html", {"jobs": jobs})
 
 
 @login_required
 def filtered_applications(request, filt):
     profile = request.user.profile
-    jobs = profile.jobs.all().order_by("-date").filter(status=filt)
+    if filt == "Archived":
+        jobs = profile.jobs.all().order_by("-date").filter(archived=True)
+    else:
+        jobs = profile.jobs.all().order_by("-date").filter(status=filt, archived=False)
     return render(request, "filtered_applications.html", {"jobs": jobs, "filt": filt})
 
 

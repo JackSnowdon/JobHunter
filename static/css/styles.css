@@ -41,6 +41,19 @@
 }
 
 
+/* Home */
+
+.welcome-header {
+    font-size: 3rem;
+    padding-top: 5px;
+    font-weight: 700;
+}
+
+.index-text {
+    font-size: 22px;
+}
+
+
 /* Portal */
 
 .list-group-item {

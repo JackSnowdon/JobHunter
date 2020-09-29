@@ -198,6 +198,9 @@ def connections(request):
     profile = request.user.profile
     cons = profile.connects.all().order_by("-date")
     today = date.today()
+    if cons.count() == 0:
+        messages.error(request, f"Log Connections To Access Connections", extra_tags="alert")
+        return redirect("new_connection_entry")
     total_cons = get_sum_value(cons, "all")
     today_cons, today_cons_total = get_single_day_cons(cons, 0)
     yday_cons, yday_cons_total = get_single_day_cons(cons, 1)

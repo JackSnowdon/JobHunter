@@ -3,7 +3,7 @@
 <section class="header">
     <div class="row mb-5">
         <div class="col-12 text-center">
-            <h1 class="headliner-text">Jack Snowdons Job Hunter!</h1>
+            <h1 class="welcome-header">The Job Hunter</h1>
         </div>
     </div>
 </section>
@@ -11,9 +11,26 @@
 <section class="welcome">
     <div class="row">
         <div class="col-12">
-            <h3>Welcome to The Job Hunter!</h3>
-            <p>I'm gunna create some tools to track job applications. linkedin wins and anythign else meaningful. Connect to GitHub ETC</p>
+            <h2 class="mb-3">Welcome to The Job Hunter!</h2>
+            <div class="ml-3">
+                <p class="index-text">Upon creating an account, your personal portal will be ready for you! </br>
+                    This gives you access to a job application tracker, allowing you to keep all your notes, connections and successes all in one place</p>
+            </div>
         </div>
+    </div>
+</section>
+
+<section class="site-nav">
+    <div class="row">
+        <div class="col-12 mb-3">
+            {% if user.profile %}
+            <h4>Welcome Back {{ user.profile }}</h4>
+            <a href="{% url 'portal' %}" role="button" class="btn btn-success" aria-disabled="false">{{ user.profile }}'s Portal</a> {% else %}
+            <h4>Been here before? Click the login button, or if you're new use the register button</h4>
+            <a href="{% url 'login' %}" role="button" class="btn btn-success" aria-disabled="false">Login</a>
+            <a href="{% url 'registration' %}" role="button" class="btn btn-success" aria-disabled="false">Register</a> {% endif %}
+        </div>
+    </div>
 </section>
 
 {% endblock %}

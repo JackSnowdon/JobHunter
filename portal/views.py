@@ -201,22 +201,19 @@ def connections(request):
         messages.error(request, f"Log Connections To Access Connections", extra_tags="alert")
         return redirect("new_connection_entry")
     total_cons = get_sum_value(cons, "all")
-    _, today_cons_total = get_single_day_cons(cons, 0)
-    yday, yday_cons_total = get_single_day_cons(cons, 1)
-    week_cons_total = get_sum_value(cons, 7)
+    week_cons_total = get_sum_value(cons, 6)
     last_week_dates = return_day_list(today, 6)
+    last_week_dates.reverse()
     weeks_data = return_day_values(last_week_dates, cons)
-    return render(request, "connections.html", {"cons": cons, "today": today, "yday": yday,
+    return render(request, "connections.html", {"cons": cons, "today": today,
                                             "total_cons": total_cons,
-                                            "today_cons_total": today_cons_total, 
-                                            "yday_cons_total": yday_cons_total,
                                             "week_cons_total": week_cons_total, "weeks_data": weeks_data})
 
 
 def return_day_list(today, days):
     """
     Takes today (datetime)
-    start_date (datetime)
+    days(amount of days from today) (datetime)
     
     returns list of days between two dates formated for zingcharts
     """

@@ -302,3 +302,10 @@ def new_connection_entry(request):
     else:
         con_form = NewConnectionForm()
     return render(request, "new_connection_entry.html", {"con_form": con_form})
+
+
+# Calls
+
+@login_required
+def call_index(request):
+    return render(request, "call_index.html")

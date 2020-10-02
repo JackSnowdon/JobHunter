@@ -11,10 +11,10 @@
 <section class="welcome">
     <div class="row">
         <div class="col-12">
-            <h2 class="mb-3">Welcome to The Job Hunter!</h2>
+            <h2 class="mb-4">Welcome to The Job Hunter!</h2>
             <div class="ml-3">
-                <p class="index-text">Upon creating an account, your personal portal will be ready for you! </br>
-                    This gives you access to a job application tracker, allowing you to keep all your notes, connections and successes all in one place</p>
+                <p class="index-text mb-4">Upon creating an account, your personal portal will be ready for you!</p>
+                <p class="index-text">This gives you access to a job application tracker, allowing you to keep all your notes, connections and successes all in one place</p>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
             {% if user.profile %}
             <h4>Welcome Back {{ user.profile }}</h4>
             <a href="{% url 'portal' %}" role="button" class="btn btn-success" aria-disabled="false">{{ user.profile }}'s Portal</a> {% else %}
-            <h4>Been here before? Click the login button, or if you're new use the register button</h4>
+            <h4 class="text-center">Been here before? Click the login button, or if you're new use the register button</h4>
             <a href="{% url 'login' %}" role="button" class="btn btn-success" aria-disabled="false">Login</a>
             <a href="{% url 'registration' %}" role="button" class="btn btn-success" aria-disabled="false">Register</a> {% endif %}
         </div>

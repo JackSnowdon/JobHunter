@@ -6,3 +6,4 @@ from .models import *
 admin.site.register(Job)
 admin.site.register(Note)
 admin.site.register(Connection)
+admin.site.register(Call)

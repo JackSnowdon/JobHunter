@@ -53,3 +53,12 @@ class Connection(models.Model):
 
     def __str__(self):
         return f"{self.amount} connections on {self.date}"
+
+
+class Call(models.Model):
+    caller = models.CharField(max_length=255)
+    profile = models.ForeignKey(Profile, related_name='calls', on_delete=models.CASCADE)
+    first_call = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.caller} @ {self.first_call}"

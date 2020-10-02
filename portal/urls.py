@@ -14,5 +14,6 @@ urlpatterns = [
     path(r'new_note/<int:pk>/', new_note, name="new_note"),
     path(r'delete_note/<int:pk>/', delete_note, name="delete_note"),
     path('connections/', connections, name="connections"),
-    path('new_connection_entry/', new_connection_entry, name="new_connection_entry")
+    path('new_connection_entry/', new_connection_entry, name="new_connection_entry"),
+    path('call_index', call_index, name="call_index"),
 ]

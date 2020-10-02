@@ -17,4 +17,7 @@ urlpatterns = [
     path('new_connection_entry/', new_connection_entry, name="new_connection_entry"),
     path('call_index', call_index, name="call_index"),
     path('new_call', new_call, name="new_call"),
+    path(r'call/<int:pk>/', call, name="call"),
+    path(r'update_call/<int:pk>/', update_call, name="update_call"),
+    path(r'delete_call/<int:pk>/', delete_call, name="delete_call"),
 ]

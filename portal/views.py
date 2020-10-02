@@ -78,7 +78,7 @@ def delete_job(request, pk):
         return redirect(reverse("portal"))
     else:
         messages.error(request, f"Job Not Yours To Delete", extra_tags="alert")
-        return redirect("party_home")
+        return redirect("index")
 
 
 @login_required
@@ -326,3 +326,44 @@ def new_call(request):
     else:
         call_form = NewCallForm()
     return render(request, "new_call.html", {"call_form": call_form})
+
+
+@login_required
+def call(request, pk):
+    call = get_object_or_404(Call, pk=pk)
+    profile = request.user.profile
+    return render(request, "call.html", {"call": call})
+
+
+@login_required
+def update_call(request, pk):
+    call = get_object_or_404(Call, pk=pk)
+    if call.profile == request.user.profile:
+        if request.method == "POST":
+            call_form =  NewCallForm(request.POST, instance=call)
+            if call_form.is_valid():
+                form = call_form.save(commit=False)
+                form.save()
+                messages.error(request, f"Updated Call", extra_tags="alert")
+                return redirect("call", call.pk)    
+        else:
+            call_form = NewCallForm(instance=call)
+        return render(request, "update_call.html", {"call_form": call_form, "call": call})
+    else:
+        messages.error(request, f"Call Not Yours To Update", extra_tags="alert")
+        return redirect("index")
+
+
+@login_required
+def delete_call(request, pk):
+    call = get_object_or_404(Call, pk=pk)
+    if call.profile == request.user.profile:
+        call.delete()
+        messages.error(
+            request, f"Deleted {call}", extra_tags="alert"
+        )
+        return redirect(reverse("call_index"))
+    else:
+        messages.error(request, f"Job Not Yours To Delete", extra_tags="alert")
+        return redirect("index")
+

@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% load static %} {% block page_title %} Job Hunter | {{ call }}{% endblock %} {% block content %}
+
+<section class="button-nav">
+    <div class="row mb-5">
+        <div class="col-12">
+            <a href="{% url 'portal' %}" role="button" class="btn btn-warning" aria-disabled="false">Portal</a>
+            <a href="{% url 'call_index' %}" role="button" class="btn btn-success" aria-disabled="false">Calls</a>
+            <a href="{% url 'delete_call' call.pk %}" role="button" class="btn btn-danger" aria-disabled="false">Delete</a>
+        </div>
+    </div>
+</section>
+
+<section class="header">
+    <div class="row mb-5">
+        <div class="col-12">
+            <h1 class="headliner-text">{{ call.caller }}</h1>
+            <a href="{% url 'update_call' call.pk %}" role="button" class="btn btn-success" aria-disabled="false">Update Call</a>
+        </div>
+    </div>
+</section>
+
+<section class="call-content">
+    <div class="row">
+        <div class="col-md-3 col-12 mb-3">
+            <h5>Call On: {{ call.first_call|date:"j/m/y" }}</h5>
+        </div>
+        <div class="col-md-9 col-12 mb-3">
+            <h5>Notes:</h5>
+            <div class="ml-2">{{ call.notes|linebreaks }}
+            </div>
+        </div>
+</section>
+
+{% endblock %}

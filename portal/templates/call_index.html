@@ -27,7 +27,7 @@
         <div class="col-12">
             <ul class="list-group">
                 {% for c in calls %}
-                <li class="list-group-item"><a href="#" class="job-link">{{ c.caller }} @ {{ c.first_call|date:"j/m/y" }}</a></li>
+                <li class="list-group-item"><a href="{% url 'call' c.pk %}" class="job-link">{{ c.caller }} @ {{ c.first_call|date:"j/m/y" }}</a></li>
                 {% endfor %}
             </ul>
         </div>

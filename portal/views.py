@@ -308,4 +308,21 @@ def new_connection_entry(request):
 
 @login_required
 def call_index(request):
-    return render(request, "call_index.html")
+    profile = request.user.profile
+    calls = profile.calls.all().order_by("-first_call")
+    return render(request, "call_index.html", {"calls": calls})
+
+
+@login_required
+def new_call(request):
+    if request.method == "POST":
+        call_form = NewCallForm(request.POST)
+        if call_form.is_valid():
+            form = call_form.save(commit=False)
+            form.profile = request.user.profile
+            form.save()
+            messages.error(request, "New Call Logged", extra_tags="alert")
+            return redirect("call_index")  
+    else:
+        call_form = NewCallForm()
+    return render(request, "new_call.html", {"call_form": call_form})

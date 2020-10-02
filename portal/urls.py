@@ -16,4 +16,5 @@ urlpatterns = [
     path('connections/', connections, name="connections"),
     path('new_connection_entry/', new_connection_entry, name="new_connection_entry"),
     path('call_index', call_index, name="call_index"),
+    path('new_call', new_call, name="new_call"),
 ]

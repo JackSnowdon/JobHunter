@@ -57,6 +57,7 @@ class Connection(models.Model):
 
 class Call(models.Model):
     caller = models.CharField(max_length=255)
+    notes = models.TextField(null=True, blank=True)
     profile = models.ForeignKey(Profile, related_name='calls', on_delete=models.CASCADE)
     first_call = models.DateTimeField(auto_now_add=True)
 

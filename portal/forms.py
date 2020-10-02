@@ -36,3 +36,10 @@ class NewConnectionForm(forms.ModelForm):
         model = Connection
         fields = ['amount']
 
+
+class NewCallForm(forms.ModelForm):
+
+    class Meta:
+        model = Call
+        fields = ['caller', 'notes']
+
